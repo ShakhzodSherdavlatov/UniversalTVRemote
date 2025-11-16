@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:UniversalTVRemote.ViewModels"
+             x:Class="UniversalTVRemote.Views.MainPage"
+             x:DataType="vm:MainViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="#1a1a1a">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Header with Status -->
+            <Frame BackgroundColor="#2d2d2d" BorderColor="Transparent" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Universal TV Remote"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+
+                    <Label Text="{Binding StatusMessage}"
+                           FontSize="14"
+                           TextColor="#88ff88"
+                           HorizontalOptions="Center"/>
+
+                    <!-- Brand Selector -->
+                    <Picker Title="Select TV Brand"
+                            ItemsSource="{Binding AvailableBrands}"
+                            SelectedItem="{Binding SelectedBrand}"
+                            TextColor="White"
+                            TitleColor="#888"
+                            BackgroundColor="#3d3d3d"
+                            IsVisible="{Binding HasIRSupport}"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Power Button -->
+            <Button Text="POWER"
+                    Command="{Binding PowerCommand}"
+                    BackgroundColor="#dc3545"
+                    TextColor="White"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    HeightRequest="60"
+                    CornerRadius="30"
+                    IsVisible="{Binding HasIRSupport}"/>
+
+            <!-- Volume Controls -->
+            <Frame BackgroundColor="#2d2d2d" BorderColor="Transparent" CornerRadius="10" Padding="15"
+                   IsVisible="{Binding HasIRSupport}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="VOLUME"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Button Text="VOL +"
+                                Command="{Binding VolumeUpCommand}"
+                                BackgroundColor="#28a745"
+                                TextColor="White"
+                                FontSize="18"
+                                HeightRequest="50"
+                                CornerRadius="10"
+                                Grid.Column="0"/>
+
+                        <Button Text="VOL -"
+                                Command="{Binding VolumeDownCommand}"
+                                BackgroundColor="#28a745"
+                                TextColor="White"
+                                FontSize="18"
+                                HeightRequest="50"
+                                CornerRadius="10"
+                                Grid.Column="1"/>
+                    </Grid>
+
+                    <Button Text="MUTE"
+                            Command="{Binding MuteCommand}"
+                            BackgroundColor="#ffc107"
+                            TextColor="#1a1a1a"
+                            FontSize="16"
+                            HeightRequest="45"
+                            CornerRadius="10"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Channel Controls -->
+            <Frame BackgroundColor="#2d2d2d" BorderColor="Transparent" CornerRadius="10" Padding="15"
+                   IsVisible="{Binding HasIRSupport}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="CHANNEL"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Button Text="CH +"
+                                Command="{Binding ChannelUpCommand}"
+                                BackgroundColor="#007bff"
+                                TextColor="White"
+                                FontSize="18"
+                                HeightRequest="50"
+                                CornerRadius="10"
+                                Grid.Column="0"/>
+
+                        <Button Text="CH -"
+                                Command="{Binding ChannelDownCommand}"
+                                BackgroundColor="#007bff"
+                                TextColor="White"
+                                FontSize="18"
+                                HeightRequest="50"
+                                CornerRadius="10"
+                                Grid.Column="1"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Navigation Controls -->
+            <Frame BackgroundColor="#2d2d2d" BorderColor="Transparent" CornerRadius="10" Padding="15"
+                   IsVisible="{Binding HasIRSupport}">
+                <Grid RowDefinitions="50,50,50" ColumnDefinitions="*,*,*" RowSpacing="10" ColumnSpacing="10">
+
+                    <!-- Menu Button (Top Left) -->
+                    <Button Text="MENU"
+                            Command="{Binding MenuCommand}"
+                            BackgroundColor="#6c757d"
+                            TextColor="White"
+                            FontSize="14"
+                            CornerRadius="10"
+                            Grid.Row="0" Grid.Column="0"/>
+
+                    <!-- Home Button (Top Right) -->
+                    <Button Text="HOME"
+                            Command="{Binding HomeCommand}"
+                            BackgroundColor="#6c757d"
+                            TextColor="White"
+                            FontSize="14"
+                            CornerRadius="10"
+                            Grid.Row="0" Grid.Column="2"/>
+
+                    <!-- OK Button (Center) -->
+                    <Button Text="OK"
+                            Command="{Binding OkCommand}"
+                            BackgroundColor="#17a2b8"
+                            TextColor="White"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            CornerRadius="25"
+                            Grid.Row="1" Grid.Column="1"/>
+
+                    <!-- Back Button (Bottom) -->
+                    <Button Text="BACK"
+                            Command="{Binding BackCommand}"
+                            BackgroundColor="#6c757d"
+                            TextColor="White"
+                            FontSize="14"
+                            CornerRadius="10"
+                            Grid.Row="2" Grid.Column="1"/>
+                </Grid>
+            </Frame>
+
+            <!-- Manual Entry Button -->
+            <Button Text="Add Custom IR Code"
+                    Command="{Binding NavigateToManualEntryCommand}"
+                    BackgroundColor="#6f42c1"
+                    TextColor="White"
+                    FontSize="16"
+                    HeightRequest="50"
+                    CornerRadius="10"
+                    Margin="0,10,0,0"
+                    IsVisible="{Binding HasIRSupport}"/>
+
+            <!-- Activity Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                              IsVisible="{Binding IsBusy}"
+                              Color="White"
+                              HorizontalOptions="Center"
+                              VerticalOptions="Center"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

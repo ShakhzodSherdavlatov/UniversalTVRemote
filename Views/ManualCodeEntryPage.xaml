@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:UniversalTVRemote.ViewModels"
+             x:Class="UniversalTVRemote.Views.ManualCodeEntryPage"
+             x:DataType="vm:ManualCodeEntryViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="#1a1a1a">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Header -->
+            <Label Text="Enter IR Code Manually"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+
+            <Label Text="Enter IR codes you found online or from manufacturer documentation"
+                   FontSize="14"
+                   TextColor="#aaa"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"/>
+
+            <!-- Status Message -->
+            <Label Text="{Binding StatusMessage}"
+                   FontSize="14"
+                   TextColor="#88ff88"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding StatusMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
+
+            <!-- Input Fields -->
+            <Frame BackgroundColor="#2d2d2d" BorderColor="Transparent" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="TV Brand *" TextColor="White" FontSize="14"/>
+                    <Entry Text="{Binding Brand}"
+                           Placeholder="e.g., Samsung, LG, Sony"
+                           PlaceholderColor="#666"
+                           TextColor="White"
+                           BackgroundColor="#3d3d3d"/>
+
+                    <Label Text="TV Model (Optional)" TextColor="White" FontSize="14"/>
+                    <Entry Text="{Binding Model}"
+                           Placeholder="e.g., UN55RU7100"
+                           PlaceholderColor="#666"
+                           TextColor="White"
+                           BackgroundColor="#3d3d3d"/>
+
+                    <Label Text="Function *" TextColor="White" FontSize="14"/>
+                    <Entry Text="{Binding Function}"
+                           Placeholder="e.g., Power, VolumeUp, VolumeDown"
+                           PlaceholderColor="#666"
+                           TextColor="White"
+                           BackgroundColor="#3d3d3d"/>
+
+                    <Label Text="Frequency (Hz) *" TextColor="White" FontSize="14"/>
+                    <Entry Text="{Binding Frequency}"
+                           Placeholder="e.g., 38000"
+                           PlaceholderColor="#666"
+                           TextColor="White"
+                           BackgroundColor="#3d3d3d"
+                           Keyboard="Numeric"/>
+
+                    <Label Text="Protocol" TextColor="White" FontSize="14"/>
+                    <Picker ItemsSource="{Binding AvailableProtocols}"
+                            SelectedItem="{Binding Protocol}"
+                            TextColor="White"
+                            TitleColor="#888"
+                            BackgroundColor="#3d3d3d"/>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Code Input Methods -->
+            <Frame BackgroundColor="#2d2d2d" BorderColor="Transparent" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="Choose ONE input method:" TextColor="White" FontSize="16" FontAttributes="Bold"/>
+
+                    <Label Text="Option 1: Hex Code" TextColor="#88ff88" FontSize="14"/>
+                    <Entry Text="{Binding HexCode}"
+                           Placeholder="e.g., 0xE0E040BF or E0E040BF"
+                           PlaceholderColor="#666"
+                           TextColor="White"
+                           BackgroundColor="#3d3d3d"/>
+
+                    <BoxView HeightRequest="1" Color="#444" Margin="0,10"/>
+
+                    <Label Text="Option 2: Raw Pattern (comma-separated timings in µs)" TextColor="#88ff88" FontSize="14"/>
+                    <Editor Text="{Binding Pattern}"
+                            Placeholder="e.g., 9000,4500,560,560,560,1690..."
+                            PlaceholderColor="#666"
+                            TextColor="White"
+                            BackgroundColor="#3d3d3d"
+                            HeightRequest="100"/>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Notes -->
+            <Frame BackgroundColor="#2d2d2d" BorderColor="Transparent" CornerRadius="10" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Notes (Optional)" TextColor="White" FontSize="14"/>
+                    <Editor Text="{Binding Notes}"
+                            Placeholder="Any additional notes..."
+                            PlaceholderColor="#666"
+                            TextColor="White"
+                            BackgroundColor="#3d3d3d"
+                            HeightRequest="80"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Action Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,10,0,0">
+                <Button Text="Test Code"
+                        Command="{Binding TestCommand}"
+                        BackgroundColor="#ffc107"
+                        TextColor="#1a1a1a"
+                        FontSize="16"
+                        HeightRequest="50"
+                        CornerRadius="10"
+                        Grid.Column="0"/>
+
+                <Button Text="Save Code"
+                        Command="{Binding SaveCommand}"
+                        BackgroundColor="#28a745"
+                        TextColor="White"
+                        FontSize="16"
+                        HeightRequest="50"
+                        CornerRadius="10"
+                        Grid.Column="1"/>
+            </Grid>
+
+            <Button Text="Cancel"
+                    Command="{Binding CancelCommand}"
+                    BackgroundColor="#6c757d"
+                    TextColor="White"
+                    FontSize="16"
+                    HeightRequest="45"
+                    CornerRadius="10"/>
+
+            <!-- Activity Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                              IsVisible="{Binding IsBusy}"
+                              Color="White"
+                              HorizontalOptions="Center"
+                              VerticalOptions="Center"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
