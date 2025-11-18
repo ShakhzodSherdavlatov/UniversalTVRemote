@@ -28,7 +28,6 @@
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="{StaticResource White}" />
         <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="CornerRadius" Value="8"/>
         <Setter Property="Padding" Value="14,10"/>
@@ -52,7 +51,6 @@
     <Style TargetType="Entry">
         <Setter Property="TextColor" Value="{StaticResource Black}" />
         <Setter Property="BackgroundColor" Value="{StaticResource Gray100}" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
         <Setter Property="PlaceholderColor" Value="{StaticResource Gray400}" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
@@ -74,7 +72,6 @@
     <Style TargetType="Editor">
         <Setter Property="TextColor" Value="{StaticResource Black}" />
         <Setter Property="BackgroundColor" Value="{StaticResource Gray100}" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
         <Setter Property="PlaceholderColor" Value="{StaticResource Gray400}" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
@@ -96,7 +93,6 @@
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="{StaticResource Gray900}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
@@ -116,7 +112,6 @@
         <Setter Property="TextColor" Value="{StaticResource Gray900}" />
         <Setter Property="TitleColor" Value="{StaticResource Gray400}" />
         <Setter Property="BackgroundColor" Value="{StaticResource Gray100}" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>

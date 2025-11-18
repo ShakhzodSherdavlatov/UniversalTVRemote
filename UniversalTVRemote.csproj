@@ -22,19 +22,19 @@
 
   <ItemGroup>
     <!-- App Icon -->
-    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" Condition="Exists('Resources\AppIcon\appicon.svg')" />
 
     <!-- Splash Screen -->
-    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#1a1a1a" BaseSize="128,128" Condition="Exists('Resources\Splash\splash.svg')" />
 
     <!-- Images -->
-    <MauiImage Include="Resources\Images\*" />
+    <MauiImage Include="Resources\Images\*" Condition="Exists('Resources\Images')" />
 
     <!-- Fonts -->
-    <MauiFont Include="Resources\Fonts\*" />
+    <MauiFont Include="Resources\Fonts\*" Condition="Exists('Resources\Fonts')" />
 
     <!-- Raw Assets -->
-    <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+    <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" Condition="Exists('Resources\Raw')" />
   </ItemGroup>
 
   <ItemGroup>
