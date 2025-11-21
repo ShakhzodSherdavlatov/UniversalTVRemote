@@ -1,8 +1,7 @@
 using Android.Content;
 using Android.Hardware;
-using UniversalTVRemote.Services;
 
-namespace UniversalTVRemote.Platforms.Android;
+namespace UniversalTVRemote.Services;
 
 /// <summary>
 /// Android-specific implementation of the infrared service using ConsumerIrManager
