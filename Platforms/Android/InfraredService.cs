@@ -33,22 +33,9 @@ public partial class InfraredService : IInfraredService
 
     public int[] GetCarrierFrequencies()
     {
-        if (_irManager?.HasIrEmitter == true)
-        {
-            var frequencies = _irManager.GetCarrierFrequencies();
-            if (frequencies != null)
-            {
-                var minFreq = frequencies.MinFrequency;
-                var maxFreq = frequencies.MaxFrequency;
-
-                // Return common frequencies within the supported range
-                var commonFreqs = new[] { 30000, 33000, 36000, 38000, 40000, 56000 };
-                return commonFreqs.Where(f => f >= minFreq && f <= maxFreq).ToArray();
-            }
-        }
-
-        // Default common frequencies if device doesn't report them
-        return new[] { 38000 };
+        // Return common IR frequencies that work for most TVs
+        // 38kHz is the most common, followed by 36kHz, 40kHz, and 56kHz
+        return new[] { 30000, 33000, 36000, 38000, 40000, 56000 };
     }
 
     public Task<bool> TransmitAsync(int frequency, int[] pattern)
