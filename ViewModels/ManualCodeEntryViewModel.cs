@@ -122,12 +122,33 @@ public class ManualCodeEntryViewModel : BaseViewModel
             IsBusy = true;
             StatusMessage = "Saving code...";
 
+            // Validate frequency
+            if (!int.TryParse(Frequency, out int frequency) || frequency <= 0)
+            {
+                StatusMessage = "⚠️ Invalid frequency. Enter a positive number.";
+                return;
+            }
+
+            // Validate pattern if provided
+            if (!string.IsNullOrWhiteSpace(Pattern))
+            {
+                var patternParts = Pattern.Split(',');
+                foreach (var part in patternParts)
+                {
+                    if (!int.TryParse(part.Trim(), out _))
+                    {
+                        StatusMessage = "⚠️ Invalid pattern. All values must be numbers.";
+                        return;
+                    }
+                }
+            }
+
             var code = new IRCode
             {
                 Brand = Brand.Trim(),
                 Model = string.IsNullOrWhiteSpace(Model) ? null : Model.Trim(),
                 Function = Function.Trim(),
-                Frequency = int.Parse(Frequency),
+                Frequency = frequency,
                 Protocol = Protocol,
                 HexCode = string.IsNullOrWhiteSpace(HexCode) ? null : HexCode.Trim(),
                 Pattern = Pattern.Trim(),
@@ -166,7 +187,13 @@ public class ManualCodeEntryViewModel : BaseViewModel
                 return;
             }
 
-            var frequency = int.Parse(Frequency);
+            // Validate frequency
+            if (!int.TryParse(Frequency, out int frequency) || frequency <= 0)
+            {
+                StatusMessage = "⚠️ Invalid frequency. Enter a positive number.";
+                return;
+            }
+
             bool success;
 
             if (!string.IsNullOrWhiteSpace(HexCode))
@@ -176,9 +203,17 @@ public class ManualCodeEntryViewModel : BaseViewModel
             }
             else if (!string.IsNullOrWhiteSpace(Pattern))
             {
-                // Test using pattern
-                var pattern = Pattern.Split(',').Select(s => int.Parse(s.Trim())).ToArray();
-                success = await _infraredService.TransmitAsync(frequency, pattern);
+                // Test using pattern - validate first
+                try
+                {
+                    var pattern = Pattern.Split(',').Select(s => int.Parse(s.Trim())).ToArray();
+                    success = await _infraredService.TransmitAsync(frequency, pattern);
+                }
+                catch (FormatException)
+                {
+                    StatusMessage = "⚠️ Invalid pattern. All values must be numbers.";
+                    return;
+                }
             }
             else
             {
