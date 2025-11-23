@@ -30,19 +30,19 @@
 dotnet restore
 
 # Build the project
-dotnet build -f net8.0-android
+dotnet build -f net8.0-android34
 
 # Deploy to connected Android device
-dotnet build -f net8.0-android -t:Run
+dotnet build -f net8.0-android34 -t:Run
 ```
 
 ### Creating APK for Distribution
 
 ```bash
 # Create release APK
-dotnet publish -f net8.0-android -c Release
+dotnet publish -f net8.0-android34 -c Release
 
-# The APK will be in: bin/Release/net8.0-android/publish/
+# The APK will be in: bin/Release/net8.0-android34/publish/
 ```
 
 ## Hardware Requirements
@@ -104,11 +104,28 @@ UniversalTVRemote/
 - Verify the IR frequency (usually 38000 Hz for most TVs)
 
 ### Build Errors
+
+**Error: "The current .NET SDK does not support targeting .NET 8.0"**
+- Ensure you have .NET 8 SDK installed: `dotnet --version` (should show 8.0.x)
+- Download from: https://dotnet.microsoft.com/download/dotnet/8.0
+- Restart Visual Studio after installation
+
+**Error: "Platform version is not present for target frameworks"**
+- The project now targets `net8.0-android34` (Android API 34)
+- Ensure you have Android SDK API 34 installed via Visual Studio SDK Manager
+- Or modify `TargetFrameworks` in `.csproj` to match your installed SDK version
+
+**Error: "maui-tizen workload must be installed"**
+- This is a false error - the project only targets Android
+- Try cleaning the solution: **Build** → **Clean Solution**
+- Close and reopen Visual Studio
+- Delete `bin/` and `obj/` folders
+
 ```bash
 # Clean and rebuild
 dotnet clean
 dotnet restore
-dotnet build -f net8.0-android
+dotnet build -f net8.0-android34
 ```
 
 ## Adding More TV Brands
